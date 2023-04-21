@@ -9,16 +9,16 @@ export type ExampleModel = {
 
 const EXAMPLES: ExampleModel[] = [
     {
-        text: "Que lugares emblematicos puedo conocer en la Ciudad de Buenos Aires?",
-        value: "Que lugares emblematicos puedo conocer en la Ciudad de Buenos Aires?"
+        text: "Qué características tiene la semilla 40R21?",
+        value: "Qué características tiene la semilla 40R21?"
     },
     {
-        text: "Cuales son las Principales Bibliotecas de la Ciudad de Buenos Aires?",
-        value: "Cuales son las Principales Bibliotecas de la Ciudad de Buenos Aires?"
+        text: "Donde se adapta la semilla 33R22?",
+        value: "Donde se adapta la semilla 33R22?"
     },
     {
-        text: "Cuales son los espacios culturales mas importantes en la Ciudad de Buenos Aires?",
-        value: "Cuales son los espacios culturales mas importantes en la Ciudad de Buenos Aires?"
+        text: "Cuál es la mejor época del año para sembrar semillas?",
+        value: "Cuál es la mejor época del año para sembrar semillas?"
     }
 ];
 

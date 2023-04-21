@@ -136,7 +136,7 @@ const OneShot = () => {
                 <h1 className={styles.oneshotTitle}>Ask your data</h1>
                 <div className={styles.oneshotQuestionInput}>
                     <QuestionInput
-                        placeholder="Ejemplo: Que bibliotecas hay disponibles en la Ciudad de Buenos Aires?"
+                        placeholder="Ejemplo: Como se distribuye el lote de soja?"
                         disabled={isLoading}
                         onSend={question => makeApiRequest(question)}
                     />

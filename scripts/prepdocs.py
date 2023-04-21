@@ -90,19 +90,20 @@ def upload_blobs(blob_client, filename):
         with open(filename,"rb") as data:
             blob_container.upload_blob(blob_name, data, overwrite=True)
 
-def remove_blobs(filename):
+def remove_blobs(filename, blob_container):
     if args.verbose: print(f"Removing blobs for '{filename or '<all>'}'")
-    blob_service = BlobServiceClient(account_url=f"https://{args.storageaccount}.blob.core.windows.net", credential=storage_creds)
-    blob_container = blob_service.get_container_client(args.container)
     if blob_container.exists():
         if filename == None:
             blobs = blob_container.list_blob_names()
         else:
-            prefix = os.path.splitext(os.path.basename(filename))[0]
-            blobs = filter(lambda b: re.match(f"{prefix}-\d+\.pdf", b), blob_container.list_blob_names(name_starts_with=os.path.splitext(os.path.basename(prefix))[0]))
-        for b in blobs:
-            if args.verbose: print(f"\tRemoving blob {b}")
-            blob_container.delete_blob(b)
+            #prefix = os.path.splitext(os.path.basename(filename))[0]
+            #print(prefix)
+            blob_container.delete_blob(filename)
+            #blobs = filter(lambda b: re.match(f"{prefix}-\d+\.pdf", b), blob_container.list_blob_names(name_starts_with=os.path.splitext(os.path.basename(prefix))[0]))
+        #for b in blobs:
+        #    print(b.name)
+        #    if args.verbose: print(f"\tRemoving blob {b}")
+        #    blob_container.delete_blob(b)
 
 def table_to_html(table):
     table_html = "<table>"
@@ -299,17 +300,16 @@ def remove_from_index(filename):
         # It can take a few seconds for search results to reflect changes, so wait a bit
         time.sleep(2)
 
+print(f"Processing files...")
+blob_service_sorce = BlobServiceClient(account_url=f"https://{args.storageaccount}.blob.core.windows.net", credential=storage_creds)
+blob_container_source = blob_service_sorce.get_container_client(args.files)
+blobs_list = blob_container_source.list_blobs()
 if args.removeall:
     remove_blobs(None)
     remove_from_index(None)
 else:
     if not args.remove:
         create_search_index()
-    
-    print(f"Processing files...")
-    blob_service_sorce = BlobServiceClient(account_url=f"https://{args.storageaccount}.blob.core.windows.net", credential=storage_creds)
-    blob_container_source = blob_service_sorce.get_container_client(args.files)
-    blobs_list = blob_container_source.list_blobs()
     for blob in blobs_list:
         filename = blob.name
         blob_client = blob_container_source.get_blob_client(filename)
@@ -323,6 +323,7 @@ else:
         if not args.skipblobs:
             upload_blobs(blob_client, filename)
         page_map = get_document_text(blob_client, filename)
-        filename = filename.replace("(", "").replace(")","")
-        sections = create_sections(os.path.basename(filename), page_map)
-        index_sections(os.path.basename(filename), sections)
+        filenameSanitized = filename.replace("(", "").replace(")","")
+        sections = create_sections(os.path.basename(filenameSanitized), page_map)
+        index_sections(os.path.basename(filenameSanitized), sections)
+        #remove_blobs(filename,blob_container_source) #borra el archivo a medida que lo procesa 

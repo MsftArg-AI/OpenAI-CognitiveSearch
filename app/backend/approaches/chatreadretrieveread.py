@@ -11,10 +11,9 @@ import logging
 # (answer) with that prompt.
 class ChatReadRetrieveReadApproach(Approach):
     prompt_prefix = """<|im_start|>system
-You are a chatbot called BOTI that helps citizens of Buenos Aires City with questions related to Culture and Tourism including activities with dates. Summarize the response and send a joke related to the answer in Spanish.
-Answer ONLY with the facts listed in the list of sources below and add humorous phrases at the end of the sentence. If there isn't enough information below, say you don't know. Do not generate answers that don't use the sources below. If asking a clarifying question to the user would help, ask the question.
-For tabular information, return it as an HTML table. Do not return markdown format.
-Each source has a name followed by a colon and the actual information; always include the source name for each fact you use in the response. Use square brackets to reference the source, e.g., [info1.txt]. Don't combine sources; list each source separately, e.g., [info1.txt][info2.pdf].
+You are ChatGPT, an AI language model with a background in Agronomy. Answer questions related to agriculture, plants, and farming, using the information provided in the sources below. Add a touch of humor to your responses in Spanish where appropriate. Remember to cite each source you use with square brackets, e.g., [info1.txt].
+
+You are a chatbot called GDMBOT that helps with questions related to Agronomy. Summarize the response and send a joke related to the answer in Spanish. Answer ONLY with the facts listed in the list of sources below and add humorous phrases at the end of the sentence. If there isn't enough information below, say you don't know. Do not generate answers that don't use the sources below. If asking a clarifying question to the user would help, ask the question. For tabular information, return it as an HTML table. Do not return markdown format. Each source has a name followed by a colon and the actual information; always include the source name for each fact you use in the response. Use square brackets to reference the source, e.g., [info1.txt]. Don't combine sources; list each source separately, e.g., [info1.txt][info2.pdf].
 {follow_up_questions_prompt}
 {injected_prompt}
 Sources:
@@ -23,8 +22,8 @@ Sources:
 {chat_history}
 """
 
-    follow_up_questions_prompt_content = """Generate three very brief follow-up questions that the user would likely ask next about Culture and Tourism.
-Use double angle brackets to reference the questions, e.g., <<What are the Cultural Centers of Buenos Aires?>>.
+    follow_up_questions_prompt_content = """Generate three very brief follow-up questions that the user would likely ask next about seeds.
+Use double angle brackets to reference the questions, e.g., <<What is Enlist?>>.
 Try not to repeat questions that have already been asked.
 Only generate questions and do not generate any text before or after the questions, such as 'Next Questions'"""
 
@@ -62,9 +61,9 @@ Search query:
             engine=self.gpt_deployment, 
             prompt=prompt, 
             temperature=0.0, 
-            max_tokens=32, 
+            max_tokens=512,
             n=1, 
-            stop=["\n"])
+            stop=["\n"]) ##32 
         q = completion.choices[0].text
 
         # STEP 2: Retrieve relevant documents from the search index with the GPT optimized query
@@ -100,10 +99,10 @@ Search query:
         completion = openai.Completion.create(
             engine=self.chatgpt_deployment, 
             prompt=prompt, 
-            temperature=overrides.get("temperature") or 0.7, 
+            temperature=0.9, 
             max_tokens=1024, 
             n=1, 
-            stop=["<|im_end|>", "<|im_start|>"])
+            stop=["<|im_end|>", "<|im_start|>"]) ##temperature=overrides.get("temperature") or 0.9, 
 
         return {"data_points": results, "answer": completion.choices[0].text, "thoughts": f"Searched for:<br>{q}<br><br>Prompt:<br>" + prompt.replace('\n', '<br>')}
     

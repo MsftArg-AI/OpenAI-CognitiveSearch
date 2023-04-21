@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import { Checkbox, Panel, DefaultButton, TextField, SpinButton } from "@fluentui/react";
 import { SparkleFilled } from "@fluentui/react-icons";
+import GDMLogo from "../../assets/GDMLogo.svg";
 
 import styles from "./Chat.module.css";
 
@@ -16,9 +17,9 @@ import { ClearChatButton } from "../../components/ClearChatButton";
 const Chat = () => {
     const [isConfigPanelOpen, setIsConfigPanelOpen] = useState(false);
     const [promptTemplate, setPromptTemplate] = useState<string>("");
-    const [retrieveCount, setRetrieveCount] = useState<number>(3);
+    const [retrieveCount, setRetrieveCount] = useState<number>(5);
     const [useSemanticRanker, setUseSemanticRanker] = useState<boolean>(true);
-    const [useSemanticCaptions, setUseSemanticCaptions] = useState<boolean>(true);
+    const [useSemanticCaptions, setUseSemanticCaptions] = useState<boolean>(false);
     const [excludeCategory, setExcludeCategory] = useState<string>("");
     const [useSuggestFollowupQuestions, setUseSuggestFollowupQuestions] = useState<boolean>(true);
 
@@ -134,10 +135,10 @@ const Chat = () => {
                 <div className={styles.chatContainer}>
                     {!lastQuestionRef.current ? (
                         <div className={styles.chatEmptyState}>
-                            <SparkleFilled fontSize={"120px"} primaryFill={"rgba(115, 118, 225, 1)"} aria-hidden="true" aria-label="Chat logo" />
-                            <h1 className={styles.chatEmptyStateTitle}>PoC-OpenAI</h1>
-                            <h2 className={styles.chatEmptyStateSubtitle}>Preguntame lo que necesites de tus documentos</h2>
-                            <ExampleList onExampleClicked={onExampleClicked} />
+                            <img src={GDMLogo} alt="Chat logo" width="900" height="400"></img>
+                            <h1 className={styles.chatEmptyStateTitle}>GDM</h1>
+                            <h2 className={styles.chatEmptyStateSubtitle}>Preguntame lo que necesites sobre GDM</h2>
+                            {/*<ExampleList onExampleClicked={onExampleClicked} />*/}
                         </div>
                     ) : (
                         <div className={styles.chatMessageStream}>
@@ -179,12 +180,7 @@ const Chat = () => {
                     )}
 
                     <div className={styles.chatInput}>
-                        <QuestionInput
-                            clearOnSend
-                            placeholder="Ingresa tu pregunta (Ejemplo: Lugares historicos puedo visitar en la Ciudad de Buenos Aires?)"
-                            disabled={isLoading}
-                            onSend={question => makeApiRequest(question)}
-                        />
+                        <QuestionInput clearOnSend placeholder="Ingresa tu pregunta aqui" disabled={isLoading} onSend={question => makeApiRequest(question)} />
                     </div>
                 </div>
 
