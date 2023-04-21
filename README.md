@@ -41,18 +41,19 @@ El repositorio no incluye ningun tipo de informacion, es necesario subir los arc
 
 #### To Run in GitHub Codespaces
 
-You can run this repo virtually by using GitHub Codespaces or VS Code Remote Containers.  Click on one of the buttons below to open this repo in one of those options.
+Puede ejecutar este repositorio de forma virtual utilizando GitHub Codespaces. Haga clic en el boton a continuación para abrir este repositorio.
 
 [![Open in GitHub Codespaces](https://img.shields.io/static/v1?style=for-the-badge&label=GitHub+Codespaces&message=Open&color=brightgreen&logo=github)](https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=599293758&machine=standardLinux32gb&devcontainer_path=.devcontainer%2Fdevcontainer.json&location=WestUs2)
 
 
-### Installation
 
-#### Project Initialization
+### Instalación 
 
-1. Create a new folder and switch to it in the terminal
-1. Run `azd login`
-1. Run `azd init -t OpenAI-CognitiveSearch`
+#### Primeros Pasos
+
+1. Crear una nueva carpeta y posicionarse en esa
+1. Ejecutar `azd login`
+1. Ejecutar `azd init -t OpenAI-CognitiveSearch`
     * For the target location, the regions that currently support the models used in this sample are **East US** or **South Central US**. For an up-to-date list of regions and models, check [here](https://learn.microsoft.com/en-us/azure/cognitive-services/openai/concepts/models)
 
 #### Starting from scratch:
