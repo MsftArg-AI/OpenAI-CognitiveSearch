@@ -3,48 +3,49 @@
 [![Open in GitHub Codespaces](https://img.shields.io/static/v1?style=for-the-badge&label=GitHub+Codespaces&message=Open&color=brightgreen&logo=github)](https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=599293758&machine=standardLinux32gb&devcontainer_path=.devcontainer%2Fdevcontainer.json&location=WestUs2)
 [![Open in Remote - Containers](https://img.shields.io/static/v1?style=for-the-badge&label=Remote%20-%20Containers&message=Open&color=blue&logo=visualstudiocode)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/azure-samples/azure-search-openai-demo)
 
-This sample demonstrates a few approaches for creating ChatGPT-like experiences over your own data using the Retrieval Augmented Generation pattern. It uses Azure OpenAI Service to access the ChatGPT model (gpt-35-turbo), and Azure Cognitive Search for data indexing and retrieval.
+Este ejemplo demuestra algunas formas de crear experiencias similares a ChatGPT utilizando sus propios datos mediante el patrón de generación con recuperación mejorada. Utiliza Azure OpenAI Service para acceder al modelo ChatGPT (gpt-35-turbo) y Azure Cognitive Search para la indexación y recuperación de datos..
 
-The repo includes sample data so it's ready to try end to end. In this sample application we use a fictitious company called Contoso Electronics, and the experience allows its employees to ask questions about the benefits, internal policies, as well as job descriptions and roles.
+El repositorio no incluye ningun tipo de informacion, es necesario subir los archivos a la Storage Account y luego ejecutar ./scripts/prepdocs.ps1 para poder procesar los documentos subidos a la storage account.
 
 ![RAG Architecture](docs/appcomponents.png)
 
-## Features
+## Características
 
-* Chat and Q&A interfaces
-* Explores various options to help users evaluate the trustworthiness of responses with citations, tracking of source content, etc.
-* Shows possible approaches for data preparation, prompt construction, and orchestration of interaction between model (ChatGPT) and retriever (Cognitive Search)
-* Shows possible approaches to Web Scraping and Index the Content in order to interact Web Content with ChatGPT
-* Shows possible approaches to Index your content from SharePoint Sources and interact with your content.
+* Interfaces de comunicación mediante chat y preguntas y respuestas
+* Explora diversas alternativas para permitir a los usuarios evaluar la fiabilidad de las respuestas, a través de la inclusión de citas y el seguimiento de las fuentes de información.
+* Presenta posibles enfoques para la preparación de datos, la construcción de comandos y la orquestación de la interacción entre el modelo ChatGPT y el recuperador Cognitive Search.
+* Muestra posibles enfoques para indexar el contenido de sitios web , con el fin de integrar el contenido web con ChatGPT.
+* Muestra posibles enfoques para la indexación del contenido de fuentes de SharePoint y la interacción con dicho contenido.
 
 ![Chat screen](docs/chatscreen.png)
 
-## Getting Started
+## Comenzando
 
-> **IMPORTANT:** To successfully execute and operate this illustration, it is necessary to possess an Azure subscription that has been authorized for use with the Azure OpenAI service. Request for access to this service can be made via this link: https://aka.ms/oaiapply. Additionally, for those who are new to Azure, it may be worthwhile to explore the opportunity of acquiring complimentary Azure credits to facilitate the initial setup, which can be done via this website: https://azure.microsoft.com/free/cognitive-search/.
+> **IMPORTANTE**: Para la correcta ejecución y operación de esta ilustración, es necesario contar con una suscripción de Azure autorizada para utilizar el servicio Azure OpenAI. Las solicitudes de acceso a este servicio se pueden realizar a través de este enlace: https://aka.ms/oaiapply. Además, para aquellos que sean nuevos en Azure, puede resultar valioso explorar la oportunidad de adquirir créditos de Azure gratuitos para facilitar la configuración inicial, lo cual puede realizarse a través de este sitio web: https://azure.microsoft.com/free/cognitive-search/.
 
-> **AZURE RESOURCE COSTS** by default this sample will create Azure App Service and Azure Cognitive Search resources that have a monthly cost, as well as Form Recognizer resource that has cost per document page. You can switch them to free versions of each of them if you want to avoid this cost by changing the parameters file under the infra folder (though there are some limits to consider; for example, you can have up to 1 free Cognitive Search resource per subscription, and the free Form Recognizer resource only analyzes the first 2 pages of each document.)
+> **COSTOS DE RECURSOS DE AZURE**: Por defecto, este ejemplo creará recursos de Azure App Service y Azure Cognitive Search que tienen un costo mensual, así como un recurso Form Recognizer que tiene un costo por página de documento. Si desea evitar estos costos, puede cambiarlos a sus versiones gratuitas modificando el archivo de parámetros en la carpeta "infra" (aunque hay algunas limitaciones a considerar; por ejemplo, solo se puede tener un recurso gratuito de Cognitive Search por suscripción, y el recurso Form Recognizer gratuito solo analiza las primeras 2 páginas de cada documento).
 
-### Prerequisites
 
-#### To Run Locally
+### Prerequisitos
+
+#### Ejecución Local (Instalar los siguientes componentes)
 - [Azure Developer CLI](https://aka.ms/azure-dev/install)
 - [Python 3+](https://www.python.org/downloads/)
-    - **Important**: Python and the pip package manager must be in the path in Windows for the setup scripts to work.
-    - **Important**: Ensure you can run `python --version` from console. On Ubuntu, you might need to run `sudo apt install python-is-python3` to link `python` to `python3`.    
+    - **Importante: Para que los scripts de configuración funcionen en Windows, es necesario que Python y el administrador de paquetes pip estén en la ruta de acceso.
+    - **Importante: Asegúrese de que puede ejecutar python --version desde la consola. En Ubuntu, puede ser necesario ejecutar sudo apt install python-is-python3 para enlazar python con python3.
 - [Node.js](https://nodejs.org/en/download/)
 - [Git](https://git-scm.com/downloads)
 - [Powershell 7+ (pwsh)](https://github.com/powershell/powershell) - For Windows users only.
-   - **Important**: Ensure you can run `pwsh.exe` from a PowerShell command. If this fails, you likely need to upgrade PowerShell.
+   - **Importante**: Asegúrese de que pueda ejecutar pwsh.exe desde un comando PowerShell. Si esto falla, probablemente necesite actualizar PowerShell.
 
->NOTE: Your Azure Account must have `Microsoft.Authorization/roleAssignments/write` permissions, such as [User Access Administrator](https://learn.microsoft.com/azure/role-based-access-control/built-in-roles#user-access-administrator) or [Owner](https://learn.microsoft.com/azure/role-based-access-control/built-in-roles#owner).  
+>NOTE: NOTA: Su cuenta de Azure debe tener permisos de escritura Microsoft.Authorization/roleAssignments/write, como Administrador de acceso de usuario o Propietario/Owner.  
 
-#### To Run in GitHub Codespaces or VS Code Remote Containers
+#### To Run in GitHub Codespaces
 
 You can run this repo virtually by using GitHub Codespaces or VS Code Remote Containers.  Click on one of the buttons below to open this repo in one of those options.
 
 [![Open in GitHub Codespaces](https://img.shields.io/static/v1?style=for-the-badge&label=GitHub+Codespaces&message=Open&color=brightgreen&logo=github)](https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=599293758&machine=standardLinux32gb&devcontainer_path=.devcontainer%2Fdevcontainer.json&location=WestUs2)
-[![Open in Remote - Containers](https://img.shields.io/static/v1?style=for-the-badge&label=Remote%20-%20Containers&message=Open&color=blue&logo=visualstudiocode)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/azure-samples/azure-search-openai-demo)
+
 
 ### Installation
 
