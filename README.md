@@ -1,7 +1,6 @@
 #OpenAI# ChatGPT + Enterprise data with Azure OpenAI and Cognitive Search
 
 [![Open in GitHub Codespaces](https://img.shields.io/static/v1?style=for-the-badge&label=GitHub+Codespaces&message=Open&color=brightgreen&logo=github)](https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=599293758&machine=standardLinux32gb&devcontainer_path=.devcontainer%2Fdevcontainer.json&location=WestUs2)
-[![Open in Remote - Containers](https://img.shields.io/static/v1?style=for-the-badge&label=Remote%20-%20Containers&message=Open&color=blue&logo=visualstudiocode)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/azure-samples/azure-search-openai-demo)
 
 Este ejemplo demuestra algunas formas de crear experiencias similares a ChatGPT utilizando sus propios datos mediante el patrón de generación con recuperación mejorada. Utiliza Azure OpenAI Service para acceder al modelo ChatGPT (gpt-35-turbo) y Azure Cognitive Search para la indexación y recuperación de datos..
 
