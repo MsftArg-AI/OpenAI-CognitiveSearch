@@ -1,4 +1,4 @@
-#OpenAI# ChatGPT + Enterprise data with Azure OpenAI and Cognitive Search
+#OpenAI# ChatGPT + Enterprise data with SharePoint + Web Scraping + OpenAI with Cognitive Search
 
 [![Open in GitHub Codespaces](https://img.shields.io/static/v1?style=for-the-badge&label=GitHub+Codespaces&message=Open&color=brightgreen&logo=github)](https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=599293758&machine=standardLinux32gb&devcontainer_path=.devcontainer%2Fdevcontainer.json&location=WestUs2)
 
@@ -70,58 +70,35 @@ Se verá de la siguiente manera:
 
 > NOTA: Puede tomar un minuto para que la aplicación se implemente completamente. Si ve una pantalla de bienvenida de "Python Developer", espere un minuto y actualice la página..
 
-#### Use existing resources:
+#### Utilizar recursos existentes:
 
-1. Run `azd env set AZURE_OPENAI_SERVICE {Name of existing OpenAI service}`
-1. Run `azd env set AZURE_OPENAI_RESOURCE_GROUP {Name of existing resource group that OpenAI service is provisioned to}`
-1. Run `azd env set AZURE_OPENAI_CHATGPT_DEPLOYMENT {Name of existing ChatGPT deployment}`. Only needed if your ChatGPT deployment is not the default 'chat'.
-1. Run `azd env set AZURE_OPENAI_GPT_DEPLOYMENT {Name of existing GPT deployment}`. Only needed if your ChatGPT deployment is not the default 'davinci'.
-1. Run `azd up`
+1. Ejecute azd env set AZURE_OPENAI_SERVICE {Nombre del servicio OpenAI existente}
+2. Ejecute azd env set AZURE_OPENAI_RESOURCE_GROUP {Nombre del grupo de recursos existente al que está aprovisionado el servicio OpenAI}
+3. Ejecute azd env set AZURE_OPENAI_CHATGPT_DEPLOYMENT {Nombre de la implementación de ChatGPT existente}. Solo necesario si su implementación de ChatGPT no es la predeterminada 'chat'.
+4. Ejecute azd env set AZURE_OPENAI_GPT_DEPLOYMENT {Nombre de la implementación GPT existente}. Solo necesario si su implementación de ChatGPT no es la predeterminada 'davinci'.
+5. Ejecute azd up
 
-> NOTE: You can also use existing Search and Storage Accounts.  See `./infra/main.parameters.json` for list of environment variables to pass to `azd env set` to configure those existing resources.
+> NOTA: También puede utilizar cuentas de búsqueda y almacenamiento existentes. Consulte ./infra/main.parameters.json para ver la lista de variables de entorno que debe pasar a azd env set para configurar esos recursos existentes..
 
-#### Deploying or re-deploying a local clone of the repo:
-* Simply run `azd up`
+#### Implementando o volviendo a implementar un clon local del repositorio:
+* Simplemente ejecute azd up:
 
-#### Running locally:
-1. Run `azd login`
-2. Change dir to `app`
-3. Run `./start.ps1` or `./start.sh` or run the "VS Code Task: Start App" to start the project locally.
+#### Ejecutar localmente:
+1. Ejecución local: Ejecute azd login
+2. Cambie el directorio a app
+3. Ejecute ./start.ps1 o ./start.sh o ejecute la "Tarea de VS Code: Iniciar aplicación" para iniciar el proyecto localmente.
 
-#### Sharing Environments
+#### Entornos Compartidos
 
-Run the following if you want to give someone else access to completely deployed and existing environment.
+Ejecute lo siguiente si desea dar acceso a otra persona a un entorno completamente implementado y existente.
 
-1. Install the [Azure CLI](https://learn.microsoft.com/cli/azure/install-azure-cli)
-1. Run `azd init -t OpenAI-CognitiveSearch`
-1. Run `azd env refresh -e {environment name}` - Note that they will need the azd environment name, subscription Id, and location to run this command - you can find those values in your `./azure/{env name}/.env` file.  This will populate their azd environment's .env file with all the settings needed to run the app locally.
-1. Run `pwsh ./scripts/roles.ps1` - This will assign all of the necessary roles to the user so they can run the app locally.  If they do not have the necessary permission to create roles in the subscription, then you may need to run this script for them. Just be sure to set the `AZURE_PRINCIPAL_ID` environment variable in the azd .env file or in the active shell to their Azure Id, which they can get with `az account show`.
+1. Instalar [Azure CLI](https://learn.microsoft.com/cli/azure/install-azure-cli)
+2. Ejecutar `azd init -t OpenAI-CognitiveSearch`
+3. Ejecutar `azd env refresh -e {environment name}` - Tenga en cuenta que necesitarán el nombre del entorno azd, la Id de suscripción y la ubicación para ejecutar este comando; puede encontrar esos valores en su archivo ./azure/{nombre del entorno}/.env. Esto completará el archivo .env del entorno azd con todas las configuraciones necesarias para ejecutar la aplicación localmente.
+4. Ejecutar `pwsh ./scripts/roles.ps1` - Esto asignará todos los roles necesarios al usuario para que pueda ejecutar la aplicación localmente. Si no tienen el permiso necesario para crear roles en la suscripción, es posible que deba ejecutar este script por ellos. Asegúrese de establecer la variable de entorno AZURE_PRINCIPAL_ID en el archivo .env de azd o en la terminal activa en su Azure Id, que pueden obtener con az account show.
 
-### Quickstart
+#### Importar Datros, Convertir a PDF y Copíar a Storage Account
 
-* In Azure: navigate to the Azure WebApp deployed by azd. The URL is printed out when azd completes (as "Endpoint"), or you can find it in the Azure portal.
-* Running locally: navigate to 127.0.0.1:5000
-
-Once in the web app:
-* Try different topics in chat or Q&A context. For chat, try follow up questions, clarifications, ask to simplify or elaborate on answer, etc.
-* Explore citations and sources
-* Click on "settings" to try different options, tweak prompts, etc.
-
-## Resources
-
-* [Revolutionize your Enterprise Data with ChatGPT: Next-gen Apps w/ Azure OpenAI and Cognitive Search](https://aka.ms/entgptsearchblog)
-* [Azure Cognitive Search](https://learn.microsoft.com/azure/search/search-what-is-azure-search)
-* [Azure OpenAI Service](https://learn.microsoft.com/azure/cognitive-services/openai/overview)
-
-### Note
->Note: The PDF documents used in this demo contain information generated using a language model (Azure OpenAI Service). The information contained in these documents is only for demonstration purposes and does not reflect the opinions or beliefs of Microsoft. Microsoft makes no representations or warranties of any kind, express or implied, about the completeness, accuracy, reliability, suitability or availability with respect to the information contained in this document. All rights reserved to Microsoft.
-
-### FAQ
-
-***Question***: Why do we need to break up the PDFs into chunks when Azure Cognitive Search supports searching large documents?
-
-***Answer***: Chunking allows us to limit the amount of information we send to OpenAI due to token limits. By breaking up the content, it allows us to easily find potential chunks of text that we can inject into OpenAI. The method of chunking we use leverages a sliding window of text such that sentences that end one chunk will start the next. This allows us to reduce the chance of losing the context of the text.
-
-### Troubleshooting
-
-If you see this error while running `azd deploy`: `read /tmp/azd1992237260/backend_env/lib64: is a directory`, then delete the `./app/backend/backend_env folder` and re-run the `azd deploy` command.  This issue is being tracked here: https://github.com/Azure/azure-dev/issues/1237
+1. Ir a [Power Automate](https://make.powerautomate.com)
+2. Importar la solucion que se encuentra dentro de la carpeta 
+3. 
