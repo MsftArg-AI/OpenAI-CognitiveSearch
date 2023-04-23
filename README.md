@@ -56,19 +56,19 @@ Puede ejecutar este repositorio de forma virtual utilizando GitHub Codespaces. H
 1. Ejecutar `azd init -t OpenAI-CognitiveSearch`
     * For the target location, the regions that currently support the models used in this sample are **East US** or **South Central US**. For an up-to-date list of regions and models, check [here](https://learn.microsoft.com/en-us/azure/cognitive-services/openai/concepts/models)
 
-#### Starting from scratch:
+#### Iniciar desde cero:
 
-Execute the following command, if you don't have any pre-existing Azure services and want to start from a fresh deployment.
+Ejecute el siguiente comando si no tiene ningún servicio de Azure preexistente y desea comenzar con una implementación nueva.
 
-1. Run `azd up` - This will provision Azure resources and deploy this sample to those resources, including building the search index based on the PDF files found in the the storage account.
-1. After the application has been successfully deployed you will see a URL printed to the console.  Click that URL to interact with the application in your browser.  
+1. Ejecute azd up - Esto aprovisionará recursos de Azure e implementará esta muestra en esos recursos, incluida la construcción del índice de búsqueda basado en los archivos PDF encontrados en la Storage Account.
+1. Después de que la aplicación se haya implementado con éxito, verá una URL impresa en la consola. Haga clic en esa URL para interactuar con la aplicación en su navegador.  
 
-It will look like the following:
+Se verá de la siguiente manera:
 
 !['Output from running azd up'](assets/endpoint.png)
     
 
-> NOTE: It may take a minute for the application to be fully deployed. If you see a "Python Developer" welcome screen, then wait a minute and refresh the page.
+> NOTA: Puede tomar un minuto para que la aplicación se implemente completamente. Si ve una pantalla de bienvenida de "Python Developer", espere un minuto y actualice la página..
 
 #### Use existing resources:
 
