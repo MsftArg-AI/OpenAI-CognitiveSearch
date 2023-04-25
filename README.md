@@ -100,5 +100,5 @@ Ejecute lo siguiente si desea dar acceso a otra persona a un entorno completamen
 #### Importar Datros, Convertir a PDF y Copíar a Storage Account
 
 1. Ir a [Power Automate](https://make.powerautomate.com)
-2. Importar la solucion que se encuentra dentro de la carpeta 
+2. Importar la solucion la siguiente: [Solucion](https://github.com/MsftArg-AI/OpenAI-CognitiveSearch/blob/main/Power%20Automate%20-%20Data%20Extractor/OpenAIDataExtract.zip)
 3. 

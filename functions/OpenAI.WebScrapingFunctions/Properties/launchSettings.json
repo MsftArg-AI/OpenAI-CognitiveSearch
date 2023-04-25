@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "OpenAI.WebScrapingFunctions": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7276",
+      "launchBrowser": false
+    }
+  }
+}
