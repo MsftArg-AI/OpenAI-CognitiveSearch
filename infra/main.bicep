@@ -46,7 +46,8 @@ param chatGptModelName string = 'gpt-35-turbo'
 param principalId string = ''
 
 var abbrs = loadJsonContent('abbreviations.json')
-var resourceToken = toLower(uniqueString(subscription().id, environmentName, location))
+//var resourceToken = toLower(uniqueString(subscription().id, environmentName, location))
+var resourceToken = environmentName
 var tags = { 'azd-env-name': environmentName }
 
 // Organize resources in a resource group
